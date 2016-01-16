@@ -394,6 +394,15 @@ void async_cb_handler(uv_async_t *handle, int status)
 			MakeCallback(context_obj, "emit", 1, args);
 			break;
 		/*
+		 * A node event
+		 */
+		case OpenZWave::Notification::Type_NodeEvent:
+			args[0] = String::New("node event");
+			args[1] = Integer::New(notif->nodeid);
+			args[2] = Integer::New(notif->event);
+			MakeCallback(context_obj, "emit", 3, args);
+			break;
+		/*
 		 * A general notification.
 		 */
 		case OpenZWave::Notification::Type_Notification:
